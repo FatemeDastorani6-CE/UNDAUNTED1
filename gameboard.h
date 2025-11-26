@@ -1,6 +1,8 @@
 #ifndef GAMEBOARD_H
 #define GAMEBOARD_H
 
+#include <QString>
+#include <QVector>
 #include <QDialog>
 
 namespace Ui {
@@ -21,6 +23,9 @@ private slots:
 private:
     Ui::GameBoard *ui;
     QString Select_M ;
+
+    void loadMap(const QString& fileName);     // مثلاً ":/maps/1.txt"
+    void namayeshMap(const QMap<QString, int>& m);
 
 };
 

@@ -7,6 +7,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+     ui->label1->lower();
+
 }
 
 MainWindow::~MainWindow()
@@ -16,6 +18,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_Play_clicked()
 {
+    hide();
     PlayerInfo dlg(this) ;
     dlg.exec() ;
 }

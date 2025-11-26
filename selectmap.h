@@ -3,6 +3,13 @@
 
 #include <QDialog>
 
+#include <QMap>
+#include <QRadioButton>
+#include <QDialog>
+#include <QString>
+
+
+
 namespace Ui {
 class SelectMap;
 }
@@ -15,22 +22,21 @@ public:
     explicit SelectMap(QWidget *parent = nullptr);
     ~SelectMap();
 
+    QString selectedMapPath() const;
+
+
+
+
+
 private slots:
-
-    void on_Map_6_clicked();
-
-    void on_Map_7_clicked();
-
-    void on_Map_8_clicked();
-
-    void on_Map_9_clicked();
-
-    void on_Map_10_clicked();
+    void on_okButton_clicked();
 
 private:
-    Ui::SelectMap *ui;
-    QString Select_M ;
 
+    void mapSelectionChanged(const QString& path);
+
+    Ui::SelectMap *ui;
+    QString chosenMap;
 };
 
 #endif // SELECTMAP_H
