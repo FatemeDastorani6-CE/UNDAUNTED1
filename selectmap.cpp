@@ -1,58 +1,51 @@
 #include "selectmap.h"
 #include "ui_selectmap.h"
-#include "gameboard.h"
+#include <QDebug>
+
 
 SelectMap::SelectMap(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::SelectMap)
 {
     ui->setupUi(this);
+    ui->okButton->setEnabled(false);
+    ui->okButton->setStyleSheet("QPushButton { background: #888; color: #ccc; padding: 12px; font-weight: bold; }"
+                                "QPushButton:enabled { background: #4CAF50; color: white; }");
+
+    ui->radioButton1->setChecked(true);
+   mapSelectionChanged(":/map/1.txt");
+
+
+    connect(ui->radioButton1, &QRadioButton::toggled, this, [this](bool c){ if(c)  mapSelectionChanged(":/map/1.txt"); });
+    connect(ui->radioButton2, &QRadioButton::toggled, this, [this](bool c){ if(c)  mapSelectionChanged(":/map/2.txt"); });
+    connect(ui->radioButton3, &QRadioButton::toggled, this, [this](bool c){ if(c)  mapSelectionChanged(":/map/3.txt"); });
+    connect(ui->radioButton4, &QRadioButton::toggled, this, [this](bool c){ if(c)  mapSelectionChanged(":/map/4.txt"); });
+    connect(ui->radioButton5, &QRadioButton::toggled, this, [this](bool c){ if(c)  mapSelectionChanged(":/map/5.txt"); });
+
 }
+
+
 
 SelectMap::~SelectMap()
 {
     delete ui;
 }
+QString SelectMap:: selectedMapPath() const {
+    return chosenMap;
+}
 
-void SelectMap::on_Map_6_clicked()
-{
-    Select_M = "map1" ;
-    GameBoard *gb = new GameBoard (Select_M , nullptr );
-    gb -> show();
-    this -> close() ;
+void SelectMap:: mapSelectionChanged(const QString& path){
+    chosenMap= path;
+    ui->okButton-> setEnabled(true);
 }
 
 
-void SelectMap::on_Map_7_clicked()
-{
-    Select_M = "map2" ;
-    GameBoard *gb = new GameBoard (Select_M , nullptr );
-    gb -> show();
-    this -> close() ;
+void SelectMap::on_okButton_clicked(){
+    accept();
 }
 
 
-void SelectMap::on_Map_8_clicked()
-{
-    GameBoard *gb = new GameBoard (Select_M , nullptr );
-    gb -> show();
-    this -> close() ;
-}
 
 
-void SelectMap::on_Map_9_clicked()
-{
-    GameBoard *gb = new GameBoard (Select_M , nullptr );
-    gb -> show();
-    this -> close() ;
-}
 
-
-void SelectMap::on_Map_10_clicked()
-{
-    Select_M = "map5" ;
-    GameBoard *gb = new GameBoard (Select_M , nullptr );
-    gb -> show();
-    this -> close() ;
-}
 
