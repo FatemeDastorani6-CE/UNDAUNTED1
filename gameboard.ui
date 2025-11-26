@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>GameBoard</class>
- <widget class="QDialog" name="GameBoard">
+ <class>statusLabel</class>
+ <widget class="QDialog" name="statusLabel">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>1043</width>
+    <height>1800</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QLabel" name="statusLabel_2">
    <property name="geometry">
     <rect>
-     <x>270</x>
-     <y>90</y>
-     <width>90</width>
-     <height>29</height>
+     <x>0</x>
+     <y>0</y>
+     <width>1024</width>
+     <height>1800</height>
     </rect>
    </property>
    <property name="text">
-    <string>PushButton</string>
+    <string>TextLabel</string>
    </property>
   </widget>
  </widget>

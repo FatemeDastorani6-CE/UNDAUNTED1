@@ -6,44 +6,96 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>900</width>
-    <height>600</height>
+    <width>1046</width>
+    <height>757</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QMainwindow{
+border-image: url(: /image/ back1.jpg)
+}</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="label">
+   <property name="styleSheet">
+    <string notr="true">#QWidget{
+background-image: url(&quot; :/ image/ back1.jpg&quot;);
+background-repeats: no-repeat;
+background-position: center;
+}</string>
+   </property>
+   <widget class="QPushButton" name="Play">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>-20</y>
-      <width>900</width>
-      <height>600</height>
+      <x>550</x>
+      <y>590</y>
+      <width>191</width>
+      <height>61</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    font-family: &quot;Segoe UI&quot;, &quot;Arial&quot;, sans-serif;
+    font-size: 26px;
+    font-weight: bold;
+    color: #000000;            /* مشکی */
+
+    background-color: #E6E6E6;  /* طوسی روشن */
+    border-radius: 15px;
+    padding: 10px 20px;
+    border: 2px solid #C8C8C8;
+}
+
+/* وقتی موس روی دکمه رفت یا کلیک شد */
+QPushButton:hover,
+QPushButton:pressed {
+    background-color: #F7D9BC;  /* آبی */
+    border: 2px solid #5A78FF;
+}</string>
+    </property>
+    <property name="text">
+     <string>PLAY</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label1">
+    <property name="geometry">
+     <rect>
+      <x>-10</x>
+      <y>-40</y>
+      <width>1291</width>
+      <height>871</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    font-family: &quot;Roboto&quot;;
+    font-size: 34px;
+    font-weight: bold;
+    color: #000000;            /* مشکی */
+
+    background-color: #E6E6E6;  /* طوسی روشن */
+    border-radius: 15px;
+    padding: 10px 20px;
+    border: 2px solid #C8C8C8;
+}
+
+/* وقتی موس روی دکمه رفت یا کلیک شد */
+QPushButton:hover,
+QPushButton:pressed {
+    background-color: #7896FF;  /* آبی */
+    border: 2px solid #5A78FF;
+}</string>
     </property>
     <property name="text">
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap resource="image/resource.qrc">:/new/prefix1/page1.png</pixmap>
+     <pixmap resource="images.qrc">:/image/back1.jpg</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="Play">
-    <property name="geometry">
-     <rect>
-      <x>350</x>
-      <y>410</y>
-      <width>151</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>PLAY</string>
     </property>
    </widget>
   </widget>
@@ -52,15 +104,15 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>900</width>
-     <height>25</height>
+     <width>1046</width>
+     <height>30</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources>
-  <include location="image/resource.qrc"/>
+  <include location="images.qrc"/>
  </resources>
  <connections/>
 </ui>
