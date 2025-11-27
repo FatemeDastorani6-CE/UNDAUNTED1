@@ -1,93 +1,93 @@
 #include "gameboard.h"
-#include "ui_gameboard.h"
-#include "QDebug"
 #include <QFile>
 #include <QTextStream>
-#include <QMessageBox>
+#include <QDebug>
+#include <QPixmap>
 
-GameBoard::GameBoard(const QString &MapName ,QWidget *parent)
+GameBoard::GameBoard(QWidget *parent)
     : QDialog(parent)
-    , ui(new Ui::GameBoard)
 {
-    ui->setupUi(this);
 
-    Select_M = MapName ;
+    this->setFixedSize(1300, 1800);
 
-    qDebug() << "selected map :" << Select_M ;
+
+    boardWidget = new QWidget(this);
+    boardWidget->setGeometry(0,0,1300,1800);
+    boardWidget->setStyleSheet("background-color: #9CAF88;");
 }
 
 GameBoard::~GameBoard()
 {
-    delete ui;
 }
 
-void GameBoard::on_pushButton_clicked()
-{
-
+QString GameBoard::getImageForLevel(int level){
+    switch (level) {
+    case 0: return ":/card/image0.JPG";
+    case 1: return ":/card/image1.JPG";
+    case 2: return ":/card/image2.JPG";
+    default: return ":/card/image0.JPG";
+    }
 }
 
-
-
-
-void GameBoard::loadMap(const QString& fileName)
+void GameBoard::loadMap(const QString &path)
 {
-    QFile file(fileName);
-    if (!file.open(QIODevice::ReadOnly)) {
-        QMessageBox::critical(this, "خطا", "فایل نقشه باز نشد!");
+
+    const int tileW = 60;
+    const int tileH = 60;
+
+    QFile file(path);
+    if(!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+        qDebug() << "Cannot open the file" << path;
         return;
     }
 
-    QMap<QString, int> map;
     QTextStream in(&file);
+    mapCells.clear();
 
-    while (!in.atEnd()) {
-        QString line = in.readLine();
-        line.replace("|", " ");
+    while(!in.atEnd()){
+        QString line = in.readLine().trimmed();
+        if(line.isEmpty()) continue;
 
-        QStringList parts = line.split(" ", Qt::SkipEmptyParts);
-        for (int i = 0; i < parts.size(); i++) {
-            QString p = parts[i];
-            if (p.contains(":")) {
-                QStringList x = p.split(":");
-                if (x.size() == 2) {
-                    QString coord = x[0].trimmed();   // A01
-                    int value = x[1].toInt();         // 0,1,2
-                    map[coord] = value;
-                }
-            }
+        QStringList parts = line.split('|', Qt::SkipEmptyParts);
+        QVector<MapCell> row;
+        for(QString p : parts){
+            QStringList sub = p.split(':');
+            if(sub.size() != 2) continue;
+
+            MapCell cell;
+            cell.name = sub[0].trimmed();
+            cell.level = sub[1].trimmed().toInt();
+            row.append(cell);
         }
+        mapCells.append(row);
     }
     file.close();
-    namayeshMap(map);
-}
 
-void GameBoard::namayeshMap(const QMap<QString, int>& map)
-{
-    int maxRow = 0, maxCol = 0;
-    foreach (QString key, map.keys()) {
-        int r = key[0].toLatin1() - 'A';
-        int c = key.mid(1).toInt();
-        if (r > maxRow) maxRow = r;
-        if (c > maxCol) maxCol = c;
+
+    QList<QWidget*> children = boardWidget->findChildren<QWidget*>();
+    for(QWidget* w : children){
+        delete w;
     }
 
-    for (int r = 0; r <= maxRow; r++) {
-        for (int c = 1; c <= maxCol; c++) {
-            QString name = QString("%1%2").arg(QChar('A'+r)).arg(c, 2, 10, QChar('0'));
-            int val = map.value(name, 0);
 
-            QPushButton* btn = new QPushButton(name);
-            btn->setFixedSize(70, 70);
+    for(int r = 0; r < mapCells.size(); ++r){
+        for(int c = 0; c < mapCells[r].size(); ++c){
+            QWidget *cellWidget = new QWidget(boardWidget);
+            cellWidget->setGeometry(c*tileW, r*tileH, tileW, tileH);
+            cellWidget->setStyleSheet("background-color: #ffffff; border:1px solid #555;");
 
-            if (val == 1) btn->setStyleSheet("background: blue; color: white;");
-            else if (val == 2) btn->setStyleSheet("background: red; color: white;");
-            else btn->setStyleSheet("background: gray;");
+            QLabel *imgLabel = new QLabel(cellWidget);
+            imgLabel->setPixmap(QPixmap(getImageForLevel(mapCells[r][c].level))
+                                    .scaled(tileW, tileH*0.75, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
+            imgLabel->setGeometry(0,0,tileW, tileH*0.75);
+            imgLabel->setAlignment(Qt::AlignCenter);
 
-            connect(btn, &QPushButton::clicked, [=]() {
-                ui->label->setText("کلیک کردی روی: " + name);
-            });
-
-            ui->gridLayout->addWidget(btn, r, c-1);
+            QLabel *txtLabel = new QLabel(mapCells[r][c].name, cellWidget);
+            txtLabel->setGeometry(0,tileH*0.75,tileW, tileH*0.25);
+            txtLabel->setAlignment(Qt::AlignCenter);
+            txtLabel->setStyleSheet("color:black; font-weight:bold; font-size:12px;");
         }
     }
+
+    boardWidget->show();
 }
