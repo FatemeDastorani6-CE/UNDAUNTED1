@@ -143,10 +143,10 @@ border:
   <widget class="QPushButton" name="Next">
    <property name="geometry">
     <rect>
-     <x>520</x>
-     <y>510</y>
-     <width>261</width>
-     <height>51</height>
+     <x>500</x>
+     <y>500</y>
+     <width>301</width>
+     <height>71</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -157,7 +157,7 @@ border:
     font-family: &quot;Segoe UI&quot;, &quot;Arial&quot;;
     padding: 12px 30px;
 
-    border-radius: 18px;
+    border-radius: 16px;
 
     background: qlineargradient(
         x1:0 y1:0, x2:0 y2:1,
