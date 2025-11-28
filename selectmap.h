@@ -7,6 +7,7 @@
 #include <QRadioButton>
 #include <QDialog>
 #include <QString>
+#include <QFile>
 
 
 
@@ -30,10 +31,9 @@ public:
 
 private slots:
     void on_okButton_clicked();
+    void mapSelectionChanged(const QString &path);
 
 private:
-
-    void mapSelectionChanged(const QString& path);
 
     Ui::SelectMap *ui;
     QString chosenMap;

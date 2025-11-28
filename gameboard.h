@@ -1,32 +1,36 @@
 #ifndef GAMEBOARD_H
 #define GAMEBOARD_H
 
-#include <QString>
-#include <QVector>
 #include <QDialog>
+#include <QVector>
+#include <QLabel>
+#include <QGridLayout>
+#include <QWidget>
 
-namespace Ui {
-class GameBoard;
-}
+struct MapCell {
+    QString name;
+    int level;
+};
 
 class GameBoard : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit GameBoard(const QString &MapName ,QWidget *parent = nullptr);
+    explicit GameBoard(QWidget *parent = nullptr);
     ~GameBoard();
 
-private slots:
-    void on_pushButton_clicked();
+    void loadMap(const QString &path);
 
 private:
-    Ui::GameBoard *ui;
-    QString Select_M ;
+    QWidget *boardWidget;
+    QGridLayout *gridLayout;
+    QVector<QVector<MapCell>> mapCells;
 
-    void loadMap(const QString& fileName);     // مثلاً ":/maps/1.txt"
-    void namayeshMap(const QMap<QString, int>& m);
+    QString getImageForLevel(int level);
 
+    const int tileW = 80;
+    const int tileH = 80;
 };
 
 #endif // GAMEBOARD_H

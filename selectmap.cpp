@@ -9,18 +9,21 @@ SelectMap::SelectMap(QWidget *parent)
 {
     ui->setupUi(this);
     ui->okButton->setEnabled(false);
-    ui->okButton->setStyleSheet("QPushButton { background: #888; color: #ccc; padding: 12px; font-weight: bold; }"
-                                "QPushButton:enabled { background: #4CAF50; color: white; }");
 
     ui->radioButton1->setChecked(true);
    mapSelectionChanged(":/map/1.txt");
 
 
-    connect(ui->radioButton1, &QRadioButton::toggled, this, [this](bool c){ if(c)  mapSelectionChanged(":/map/1.txt"); });
-    connect(ui->radioButton2, &QRadioButton::toggled, this, [this](bool c){ if(c)  mapSelectionChanged(":/map/2.txt"); });
-    connect(ui->radioButton3, &QRadioButton::toggled, this, [this](bool c){ if(c)  mapSelectionChanged(":/map/3.txt"); });
-    connect(ui->radioButton4, &QRadioButton::toggled, this, [this](bool c){ if(c)  mapSelectionChanged(":/map/4.txt"); });
-    connect(ui->radioButton5, &QRadioButton::toggled, this, [this](bool c){ if(c)  mapSelectionChanged(":/map/5.txt"); });
+    connect(ui->radioButton1, &QRadioButton::toggled, this,
+           [this](bool c){ if(c)  mapSelectionChanged(":/map/1.txt"); });
+    connect(ui->radioButton2, &QRadioButton::toggled, this,
+            [this](bool c){ if(c)  mapSelectionChanged(":/map/2.txt"); });
+    connect(ui->radioButton3, &QRadioButton::toggled, this,
+            [this](bool c){ if(c)  mapSelectionChanged(":/map/3.txt"); });
+    connect(ui->radioButton4, &QRadioButton::toggled, this,
+            [this](bool c){ if(c)  mapSelectionChanged(":/map/4.txt"); });
+    connect(ui->radioButton5, &QRadioButton::toggled, this,
+            [this](bool c){ if(c)  mapSelectionChanged(":/map/5.txt"); });
 
 }
 
@@ -35,7 +38,12 @@ QString SelectMap:: selectedMapPath() const {
 }
 
 void SelectMap:: mapSelectionChanged(const QString& path){
-    chosenMap= path;
+    QFile file(path);
+    if(!file.exists()){
+        qDebug() << "Map file not found:" << path;
+        ui->okButton->setEnabled(false);
+    }
+    chosenMap=path;
     ui->okButton-> setEnabled(true);
 }
 

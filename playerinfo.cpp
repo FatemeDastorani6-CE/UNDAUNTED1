@@ -3,6 +3,8 @@
 #include <qmessagebox.h>
 #include "selectmap.h"
 #include "gameboard.h"
+#include "QFile"
+
 
 
 bool PlayerInfo :: CheckName ( const QString &name ) {
@@ -36,7 +38,6 @@ PlayerInfo::PlayerInfo(QWidget *parent)
 {
     ui->setupUi(this);
 }
-
 PlayerInfo::~PlayerInfo()
 {
     delete ui;
@@ -64,23 +65,16 @@ void PlayerInfo::on_Next_clicked()
 
 
 
-    SelectMap dialog(this);
-    if (dialog.exec() == QDialog::Accepted) {
-        QString mapPath;
+    SelectMap mapDialog(this);
+    if (mapDialog.exec() == QDialog::Accepted) {
+        QString path = mapDialog.selectedMapPath();
 
-        switch (dialog.selectedMapNumber) {
-        case 1: mapPath = ":/map/1.txt"; break;
-        case 2: mapPath = ":/map/2.txt"; break;
-        case 3: mapPath = ":/map/3.txt"; break;
-        case 4: mapPath = ":/map/4.txt"; break;
-        case 5: mapPath = ":/map/5.txt"; break;
+        GameBoard *gb = new GameBoard();
+        gb->loadMap(path);
+        gb->show();
+
+        this->close();
+
         }
-
-        hide();
-        GameBoard* game = new GameBoard();
-        game->loadMap(mapPath);   // این تابع قبلاً نوشتی
-        game->show();
-    }
-
 }
 
