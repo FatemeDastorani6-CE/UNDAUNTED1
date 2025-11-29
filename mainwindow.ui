@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1300</width>
-    <height>2000</height>
+    <width>900</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -29,10 +29,10 @@ background-position: center;
    <widget class="QPushButton" name="Play">
     <property name="geometry">
      <rect>
-      <x>550</x>
-      <y>620</y>
-      <width>211</width>
-      <height>50</height>
+      <x>340</x>
+      <y>430</y>
+      <width>201</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -47,13 +47,13 @@ background-position: center;
 
     background: qlineargradient(
         x1:0 y1:0, x2:0 y2:1,
-        stop:0 #a77749,
-        stop:0.4 #d9c89d,
+        stop:0 #cf8d37,
+        stop:0.4 #e8c469,
         stop:0.6 #f0e3cf,
-        stop:1 #a77749
+        stop:1 #cf8d37
     );
 
-    border: 2px solid #a77749;
+    border: 2px solid #cf8d37;
 }
 
 QPushButton:hover {
@@ -84,10 +84,10 @@ QPushButton:pressed {
    <widget class="QLabel" name="label1">
     <property name="geometry">
      <rect>
-      <x>-60</x>
-      <y>-60</y>
-      <width>1391</width>
-      <height>931</height>
+      <x>0</x>
+      <y>-20</y>
+      <width>900</width>
+      <height>600</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -120,14 +120,16 @@ QPushButton:pressed {
      <bool>true</bool>
     </property>
    </widget>
+   <zorder>label1</zorder>
+   <zorder>Play</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1300</width>
-     <height>30</height>
+     <width>900</width>
+     <height>25</height>
     </rect>
    </property>
   </widget>

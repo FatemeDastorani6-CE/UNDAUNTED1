@@ -8,7 +8,7 @@ SelectMap::SelectMap(QWidget *parent)
     , ui(new Ui::SelectMap)
 {
     ui->setupUi(this);
-    ui->okButton->setEnabled(false);
+    ui->OK->setEnabled(false);
 
     ui->radioButton1->setChecked(true);
    mapSelectionChanged(":/map/1.txt");
@@ -41,19 +41,14 @@ void SelectMap:: mapSelectionChanged(const QString& path){
     QFile file(path);
     if(!file.exists()){
         qDebug() << "Map file not found:" << path;
-        ui->okButton->setEnabled(false);
+        ui->OK->setEnabled(false);
     }
     chosenMap=path;
-    ui->okButton-> setEnabled(true);
+    ui->OK-> setEnabled(true);
 }
 
-
-void SelectMap::on_okButton_clicked(){
-    accept();
+void SelectMap::on_OK_clicked()
+{
+    accept() ;
 }
-
-
-
-
-
 

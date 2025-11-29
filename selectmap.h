@@ -30,7 +30,7 @@ public:
 
 
 private slots:
-    void on_okButton_clicked();
+    void on_OK_clicked();
     void mapSelectionChanged(const QString &path);
 
 private:

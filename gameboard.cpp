@@ -8,7 +8,7 @@ GameBoard::GameBoard(QWidget *parent)
     : QDialog(parent)
 {
 
-
+    this->setFixedSize(1300, 1800);
 
 
     boardWidget = new QWidget(this);
@@ -32,8 +32,8 @@ QString GameBoard::getImageForLevel(int level){
 void GameBoard::loadMap(const QString &path)
 {
 
-    const int tileW = 65;
-    const int tileH = 65;
+    const int tileW = 60;
+    const int tileH = 60;
 
     QFile file(path);
     if(!file.open(QIODevice::ReadOnly | QIODevice::Text)){
