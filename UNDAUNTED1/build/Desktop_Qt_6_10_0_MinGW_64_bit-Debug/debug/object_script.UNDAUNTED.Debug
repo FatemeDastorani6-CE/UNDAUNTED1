@@ -1,0 +1,12 @@
+debug/gameboard.o
+debug/main.o
+debug/mainwindow.o
+debug/playerinfo.o
+debug/selectmap.o
+debug/qrc_cards.o
+debug/qrc_images.o
+debug/qrc_maps.o
+debug/moc_gameboard.o
+debug/moc_mainwindow.o
+debug/moc_playerinfo.o
+debug/moc_selectmap.o

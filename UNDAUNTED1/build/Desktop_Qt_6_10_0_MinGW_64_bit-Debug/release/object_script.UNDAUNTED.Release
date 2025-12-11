@@ -1,0 +1,12 @@
+release/gameboard.o
+release/main.o
+release/mainwindow.o
+release/playerinfo.o
+release/selectmap.o
+release/qrc_cards.o
+release/qrc_images.o
+release/qrc_maps.o
+release/moc_gameboard.o
+release/moc_mainwindow.o
+release/moc_playerinfo.o
+release/moc_selectmap.o
