@@ -8,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
      ui->label1->lower();
+     this->showFullScreen();
 
 }
 

@@ -6,14 +6,17 @@
 
 GameBoard::GameBoard(QWidget *parent)
     : QDialog(parent)
+
 {
 
 
-
+this->showFullScreen();
 
     boardWidget = new QWidget(this);
-    boardWidget->setGeometry(0,0,1300,1800);
-    boardWidget->setStyleSheet("background-color: #9CAF88;");
+    QVBoxLayout *layout = new QVBoxLayout(this);
+    layout->setContentsMargins(0,0,0,0);
+    layout->addWidget(boardWidget);
+    boardWidget->setStyleSheet("background-color: #8FBC8F;");
 }
 
 GameBoard::~GameBoard()
@@ -32,8 +35,8 @@ QString GameBoard::getImageForLevel(int level){
 void GameBoard::loadMap(const QString &path)
 {
 
-    const int tileW = 65;
-    const int tileH = 65;
+    const int tileW = 60;
+    const int tileH = 60;
 
     QFile file(path);
     if(!file.open(QIODevice::ReadOnly | QIODevice::Text)){
@@ -69,11 +72,28 @@ void GameBoard::loadMap(const QString &path)
         delete w;
     }
 
+    int rows = mapCells.size();
+    int cols = mapCells[0].size();
+
+    int boardWidth = cols * tileW + tileW / 2;
+    int boardHeight = rows * tileH;
+
+    int startX = (1300 - boardWidth) / 2;
+    int startY = (700 - boardHeight) / 2;
+
 
     for(int r = 0; r < mapCells.size(); ++r){
         for(int c = 0; c < mapCells[r].size(); ++c){
             QWidget *cellWidget = new QWidget(boardWidget);
-            cellWidget->setGeometry(c*tileW, r*tileH, tileW, tileH);
+            int offset = (r % 2 == 1) ? tileW / 2 : 0;
+
+            cellWidget->setGeometry(
+                startX + c * tileW + offset,
+                startY + r * tileH,
+                tileW,
+                tileH
+                );
+
             cellWidget->setStyleSheet("background-color: #ffffff; border:1px solid #555;");
 
             QLabel *imgLabel = new QLabel(cellWidget);

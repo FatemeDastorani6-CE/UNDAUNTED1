@@ -37,6 +37,7 @@ PlayerInfo::PlayerInfo(QWidget *parent)
     , ui(new Ui::PlayerInfo)
 {
     ui->setupUi(this);
+    this->showFullScreen();
 }
 PlayerInfo::~PlayerInfo()
 {
