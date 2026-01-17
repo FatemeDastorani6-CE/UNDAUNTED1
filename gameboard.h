@@ -4,12 +4,31 @@
 #include <QDialog>
 #include <QVector>
 #include <QLabel>
-#include <QGridLayout>
 #include <QWidget>
 
-struct MapCell {
+class MapCell {
+public:
     QString name;
     int level;
+
+    QString agentType;   // Sniper / Scout / Sergeant
+    char agentOwner;     // A / B
+
+    bool markedByA;
+    bool markedByB;
+
+    bool controlledByA;
+    bool controlledByB;
+
+    MapCell();
+
+    bool isMarkedBy(char player) const;
+    void setMarkedBy(char player);
+
+    bool hasAgent() const;
+
+    bool isControlledBy(char player) const;
+    void setControlledBy(char player);
 };
 
 class GameBoard : public QDialog
@@ -17,20 +36,21 @@ class GameBoard : public QDialog
     Q_OBJECT
 
 public:
-    explicit GameBoard(QWidget *parent = nullptr);
+    GameBoard(QWidget *p = nullptr);
     ~GameBoard();
 
     void loadMap(const QString &path);
+    void loadAgents(const QString &path);
 
 private:
     QWidget *boardWidget;
-    QGridLayout *gridLayout;
     QVector<QVector<MapCell>> mapCells;
 
     QString getImageForLevel(int level);
+    void updateBoardUI();
 
     const int tileW = 80;
     const int tileH = 80;
 };
 
-#endif // GAMEBOARD_H
+#endif

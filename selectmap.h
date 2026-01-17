@@ -1,8 +1,6 @@
 #ifndef SELECTMAP_H
 #define SELECTMAP_H
 
-#include <QDialog>
-
 #include <QMap>
 #include <QRadioButton>
 #include <QDialog>
@@ -20,10 +18,12 @@ class SelectMap : public QDialog
     Q_OBJECT
 
 public:
-    explicit SelectMap(QWidget *parent = nullptr);
+    SelectMap(QWidget *p = nullptr);
     ~SelectMap();
 
     QString selectedMapPath() const;
+
+    QString selectedAgentPath() const { return chosenAgentFile; } //جدید
 
 
 
@@ -34,9 +34,9 @@ private slots:
     void mapSelectionChanged(const QString &path);
 
 private:
-
     Ui::SelectMap *ui;
     QString chosenMap;
+    QString chosenAgentFile;   // اضافه شد
 };
 
-#endif // SELECTMAP_H
+#endif

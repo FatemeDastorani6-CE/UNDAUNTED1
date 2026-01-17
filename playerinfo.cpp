@@ -67,15 +67,12 @@ void PlayerInfo::on_Next_clicked()
 
 
     SelectMap mapDialog(this);
-    if (mapDialog.exec() == QDialog::Accepted) {
+
+    if(mapDialog.exec() == QDialog::Accepted){
         QString path = mapDialog.selectedMapPath();
-
         GameBoard *gb = new GameBoard();
-        gb->loadMap(path);
         gb->show();
-
-        this->close();
-
-        }
+        gb->loadMap(path);
+    }
 }
 
