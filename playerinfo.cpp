@@ -66,16 +66,20 @@ void PlayerInfo::on_Next_clicked()
 
 
 
+
+    // --- Select Map (MODAL) ---
     SelectMap mapDialog(this);
-    if (mapDialog.exec() == QDialog::Accepted) {
-        QString path = mapDialog.selectedMapPath();
+    if (mapDialog.exec() != QDialog::Accepted)
+        return;
 
-        GameBoard *gb = new GameBoard();
-        gb->loadMap(path);
-        gb->show();
+    QString mapPath = mapDialog.selectedMapPath();
 
-        this->close();
+    // --- Game Board ---
+    GameBoard *gb = new GameBoard(this);
+    gb->loadMap(mapPath);
+    gb->show();
 
-        }
+    // بستن صفحه اطلاعات بازیکن
+    this->close();
 }
 

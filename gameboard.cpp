@@ -1,113 +1,119 @@
 #include "gameboard.h"
 #include <QFile>
 #include <QTextStream>
+#include <QPushButton>
 #include <QDebug>
-#include <QPixmap>
 
-GameBoard::GameBoard(QWidget *parent)
-    : QDialog(parent)
+GameBoard::GameBoard(QWidget *parent) : QWidget(parent) {}
 
+void GameBoard::clearUI()
 {
+    QList<QWidget*> members = this->findChildren<QWidget*>();
+    for(int i=0;i<members.size();++i) delete members[i];
 
-
-this->showFullScreen();
-
-    boardWidget = new QWidget(this);
-    QVBoxLayout *layout = new QVBoxLayout(this);
-    layout->setContentsMargins(0,0,0,0);
-    layout->addWidget(boardWidget);
-    boardWidget->setStyleSheet("background-color: #8FBC8F;");
+    qDeleteAll(cells);
+    cells.clear();
 }
 
-GameBoard::~GameBoard()
+void GameBoard::loadMap(const QString &mapFile, const QString &pieceFile)
 {
-}
+    clearUI();
 
-QString GameBoard::getImageForLevel(int level){
-    switch (level) {
-    case 0: return ":/card/image0.JPG";
-    case 1: return ":/card/image1.JPG";
-    case 2: return ":/card/image2.JPG";
-    default: return ":/card/image0.JPG";
-    }
-}
-
-void GameBoard::loadMap(const QString &path)
-{
-
-    const int tileW = 60;
-    const int tileH = 60;
-
-    QFile file(path);
-    if(!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-        qDebug() << "Cannot open the file" << path;
-        return;
-    }
-
+    // بارگذاری سطح کارت‌ها
+    QFile file(mapFile);
+    if(!file.open(QIODevice::ReadOnly | QIODevice::Text)) return;
     QTextStream in(&file);
-    mapCells.clear();
 
     while(!in.atEnd()){
         QString line = in.readLine().trimmed();
         if(line.isEmpty()) continue;
 
-        QStringList parts = line.split('|', Qt::SkipEmptyParts);
-        QVector<MapCell> row;
-        for(QString p : parts){
+        QStringList parts = line.split('|', QString::SkipEmptyParts);
+        for(const QString &p : parts){
             QStringList sub = p.split(':');
-            if(sub.size() != 2) continue;
+            if(sub.size()!=2) continue;
 
-            MapCell cell;
-            cell.name = sub[0].trimmed();
-            cell.level = sub[1].trimmed().toInt();
-            row.append(cell);
-        }
-        mapCells.append(row);
-    }
-    file.close();
-
-
-    QList<QWidget*> children = boardWidget->findChildren<QWidget*>();
-    for(QWidget* w : children){
-        delete w;
-    }
-
-    int rows = mapCells.size();
-    int cols = mapCells[0].size();
-
-    int boardWidth = cols * tileW + tileW / 2;
-    int boardHeight = rows * tileH;
-
-    int startX = (1300 - boardWidth) / 2;
-    int startY = (700 - boardHeight) / 2;
-
-
-    for(int r = 0; r < mapCells.size(); ++r){
-        for(int c = 0; c < mapCells[r].size(); ++c){
-            QWidget *cellWidget = new QWidget(boardWidget);
-            int offset = (r % 2 == 1) ? tileW / 2 : 0;
-
-            cellWidget->setGeometry(
-                startX + c * tileW + offset,
-                startY + r * tileH,
-                tileW,
-                tileH
-                );
-
-            cellWidget->setStyleSheet("background-color: #ffffff; border:1px solid #555;");
-
-            QLabel *imgLabel = new QLabel(cellWidget);
-            imgLabel->setPixmap(QPixmap(getImageForLevel(mapCells[r][c].level))
-                                    .scaled(tileW, tileH*0.75, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
-            imgLabel->setGeometry(0,0,tileW, tileH*0.75);
-            imgLabel->setAlignment(Qt::AlignCenter);
-
-            QLabel *txtLabel = new QLabel(mapCells[r][c].name, cellWidget);
-            txtLabel->setGeometry(0,tileH*0.75,tileW, tileH*0.25);
-            txtLabel->setAlignment(Qt::AlignCenter);
-            txtLabel->setStyleSheet("color:black; font-weight:bold; font-size:12px;");
+            MapCell* cell = new MapCell;
+            cell->id = sub[0].trimmed();
+            cell->level = sub[1].trimmed().toInt();
+            cells[cell->id] = cell;
         }
     }
 
-    boardWidget->show();
+    // بارگذاری مالک و مهره‌ها
+    QFile f(pieceFile);
+    if(!f.open(QIODevice::ReadOnly | QIODevice::Text)) return;
+    QTextStream pin(&f);
+
+    while(!pin.atEnd()){
+        QString line = pin.readLine().trimmed();
+        if(line.isEmpty()) continue;
+
+        QStringList parts = line.split(':');
+        if(parts.size()!=2) continue;
+
+        QString id = parts[0].trimmed();
+        if(!cells.contains(id)) continue;
+        MapCell* cell = cells[id];
+
+        QStringList props = parts[1].split(',');
+        for(const QString &p : props){
+            QString prop = p.trimmed();
+            if(prop=="A" || prop=="B") cell->owner = prop;
+            else if(prop=="Mark"){
+                if(cell->owner=="A") cell->markedByA=true;
+                else if(cell->owner=="B") cell->markedByB=true;
+            }
+            else if(prop=="Control"){
+                if(cell->owner=="A") cell->controlledByA=true;
+                else if(cell->owner=="B") cell->controlledByB=true;
+            }
+            else if(prop=="Sniper" || prop=="Scout" || prop=="Seargeant")
+                cell->pieceType = prop;
+        }
+    }
+
+    createMapUI();
+    setupNeighbors();
+}
+
+void GameBoard::createMapUI()
+{
+    for(MapCell* cell : cells){
+        QPushButton* btn = new QPushButton(this);
+        QString text = QString("%1\nLvl:%2").arg(cell->id).arg(cell->level);
+        if(!cell->owner.isEmpty()) text += "\n" + cell->owner;
+        if(!cell->pieceType.isEmpty()) text += "\n" + cell->pieceType;
+        if(cell->markedByA || cell->markedByB) text += "\nMark";
+        if(cell->controlledByA || cell->controlledByB) text += "\nControl";
+
+        btn->setText(text);
+        btn->setFixedSize(60,60);
+        cell->widget = btn;
+
+        // موقعیت ساده
+        int row = cell->id.mid(1).toInt() - 1;
+        int col = cell->id[0].unicode() - 'A';
+        int x = col * 55 + (row % 2) * 27;
+        int y = row * 50;
+        btn->move(x, y);
+        btn->show();
+    }
+}
+
+void GameBoard::setupNeighbors()
+{
+    // نمونه Hex: هر کارت ۶ همسایه فرضی
+    QMap<QString, QList<QString>> neighborMap;
+    // برای هر کارت اسم همسایه‌ها را اینجا مشخص کن
+    // مثلا neighborMap["A01"] = {"A02","B01","..."};
+
+    for(auto it=cells.begin(); it!=cells.end(); ++it){
+        MapCell* c = it.value();
+        if(neighborMap.contains(c->id)){
+            for(QString nid : neighborMap[c->id]){
+                if(cells.contains(nid)) c->neighbors.append(cells[nid]);
+            }
+        }
+    }
 }

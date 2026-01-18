@@ -18,6 +18,7 @@ SOURCES += \
 HEADERS += \
     gameboard.h \
     mainwindow.h \
+    mapcell.h \
     playerinfo.h \
     selectmap.h
 
@@ -33,6 +34,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
+    agents.qrc \
     cards.qrc \
     image/resource.qrc \
     image1.qrc \

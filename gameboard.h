@@ -1,36 +1,19 @@
-#ifndef GAMEBOARD_H
-#define GAMEBOARD_H
-
-#include <QDialog>
-#include <QVector>
-#include <QLabel>
-#include <QGridLayout>
+#pragma once
 #include <QWidget>
+#include <QMap>
+#include "mapcell.h"
 
-struct MapCell {
-    QString name;
-    int level;
-};
-
-class GameBoard : public QDialog
+class GameBoard : public QWidget
 {
     Q_OBJECT
-
 public:
     explicit GameBoard(QWidget *parent = nullptr);
-    ~GameBoard();
-
-    void loadMap(const QString &path);
+    void loadMap(const QString &mapFile, const QString &pieceFile);
 
 private:
-    QWidget *boardWidget;
-    QGridLayout *gridLayout;
-    QVector<QVector<MapCell>> mapCells;
+    QMap<QString, MapCell*> cells;
 
-    QString getImageForLevel(int level);
-
-    const int tileW = 80;
-    const int tileH = 80;
+    void clearUI();
+    void createMapUI();
+    void setupNeighbors();
 };
-
-#endif // GAMEBOARD_H
