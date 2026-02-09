@@ -2,35 +2,29 @@
 #define GAMEBOARD_H
 
 #include <QDialog>
-#include <QVector>
-#include <QLabel>
-#include <QGridLayout>
-#include <QWidget>
-
-struct MapCell {
-    QString name;
-    int level;
-};
+#include <QHBoxLayout>
+#include <QPushButton>
+#include "game.h"
 
 class GameBoard : public QDialog
 {
     Q_OBJECT
-
 public:
-    explicit GameBoard(QWidget *parent = nullptr);
+    explicit GameBoard(Game *g, QWidget *parent = nullptr);
     ~GameBoard();
 
     void loadMap(const QString &path);
+    void updateHandUI();
+
+protected:
+    bool eventFilter(QObject *obj, QEvent *event) override;
 
 private:
-    QWidget *boardWidget;
-    QGridLayout *gridLayout;
-    QVector<QVector<MapCell>> mapCells;
+    Game *game;
 
-    QString getImageForLevel(int level);
-
-    const int tileW = 80;
-    const int tileH = 80;
+    QWidget *handWidget;
+    QHBoxLayout *handLayout;
+    QVector<QPushButton*> cardButtons;
 };
 
-#endif // GAMEBOARD_H
+#endif

@@ -12,7 +12,8 @@ class PlayerInfo : public QDialog
     Q_OBJECT
 
 public:
-    explicit PlayerInfo(QWidget *parent = nullptr);
+     PlayerInfo(QWidget *parent = nullptr);
+
     ~PlayerInfo();
 
 private slots:
@@ -27,4 +28,4 @@ private:
 
 };
 
-#endif // PLAYERINFO_H
+#endif

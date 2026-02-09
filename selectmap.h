@@ -1,8 +1,6 @@
 #ifndef SELECTMAP_H
 #define SELECTMAP_H
 
-#include <QDialog>
-
 #include <QMap>
 #include <QRadioButton>
 #include <QDialog>
@@ -20,7 +18,7 @@ class SelectMap : public QDialog
     Q_OBJECT
 
 public:
-    explicit SelectMap(QWidget *parent = nullptr);
+     SelectMap(QWidget *parent = nullptr);
     ~SelectMap();
 
     QString selectedMapPath() const;
@@ -30,7 +28,7 @@ public:
 
 
 private slots:
-    void on_okButton_clicked();
+    void on_OK_clicked();
     void mapSelectionChanged(const QString &path);
 
 private:
@@ -39,4 +37,4 @@ private:
     QString chosenMap;
 };
 
-#endif // SELECTMAP_H
+#endif

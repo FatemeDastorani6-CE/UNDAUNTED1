@@ -1,113 +1,64 @@
 #include "gameboard.h"
-#include <QFile>
-#include <QTextStream>
-#include <QDebug>
-#include <QPixmap>
 
-GameBoard::GameBoard(QWidget *parent)
-    : QDialog(parent)
-
+GameBoard::GameBoard(Game *g, QWidget *parent)
+    : QDialog(parent), game(g)
 {
+    setFixedSize(900, 600);
 
+    handWidget = new QWidget(this);
+    handWidget->setGeometry(0, 500, 900, 100);
+    handWidget->setStyleSheet("background:#333;");
 
-this->showFullScreen();
+    handLayout = new QHBoxLayout(handWidget);
+    handLayout->setAlignment(Qt::AlignCenter);
 
-    boardWidget = new QWidget(this);
-    QVBoxLayout *layout = new QVBoxLayout(this);
-    layout->setContentsMargins(0,0,0,0);
-    layout->addWidget(boardWidget);
-    boardWidget->setStyleSheet("background-color: #8FBC8F;");
+    updateHandUI();
 }
 
-GameBoard::~GameBoard()
-{
-}
-
-QString GameBoard::getImageForLevel(int level){
-    switch (level) {
-    case 0: return ":/card/image0.JPG";
-    case 1: return ":/card/image1.JPG";
-    case 2: return ":/card/image2.JPG";
-    default: return ":/card/image0.JPG";
-    }
-}
+GameBoard::~GameBoard() {}
 
 void GameBoard::loadMap(const QString &path)
 {
+    Q_UNUSED(path);
+}
 
-    const int tileW = 60;
-    const int tileH = 60;
-
-    QFile file(path);
-    if(!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-        qDebug() << "Cannot open the file" << path;
-        return;
+void GameBoard::updateHandUI()
+{
+    QLayoutItem *item;
+    while ((item = handLayout->takeAt(0)) != nullptr) {
+        delete item->widget();
+        delete item;
     }
 
-    QTextStream in(&file);
-    mapCells.clear();
+    cardButtons.clear();
 
-    while(!in.atEnd()){
-        QString line = in.readLine().trimmed();
-        if(line.isEmpty()) continue;
+    const QVector<Card> &hand = game->getCurrentPlayer().getHand();
 
-        QStringList parts = line.split('|', Qt::SkipEmptyParts);
-        QVector<MapCell> row;
-        for(QString p : parts){
-            QStringList sub = p.split(':');
-            if(sub.size() != 2) continue;
+    for (int i = 0; i < hand.size(); i++) {
+        QPushButton *btn = new QPushButton(this);
+        btn->setFixedSize(120, 80);
 
-            MapCell cell;
-            cell.name = sub[0].trimmed();
-            cell.level = sub[1].trimmed().toInt();
-            row.append(cell);
+        QString text;
+        switch (hand[i].getType()) {
+        case SCOUT: text = "Scout"; break;
+        case SNIPER: text = "Sniper"; break;
+        case SERGEANT: text = "Sergeant"; break;
         }
-        mapCells.append(row);
+
+        btn->setText(text);
+
+        connect(btn, &QPushButton::clicked, this, [=]() {
+            game->playCard(i);
+        });
+
+        handLayout->addWidget(btn);
+        cardButtons.push_back(btn);
     }
-    file.close();
+}
 
-
-    QList<QWidget*> children = boardWidget->findChildren<QWidget*>();
-    for(QWidget* w : children){
-        delete w;
-    }
-
-    int rows = mapCells.size();
-    int cols = mapCells[0].size();
-
-    int boardWidth = cols * tileW + tileW / 2;
-    int boardHeight = rows * tileH;
-
-    int startX = (1300 - boardWidth) / 2;
-    int startY = (700 - boardHeight) / 2;
-
-
-    for(int r = 0; r < mapCells.size(); ++r){
-        for(int c = 0; c < mapCells[r].size(); ++c){
-            QWidget *cellWidget = new QWidget(boardWidget);
-            int offset = (r % 2 == 1) ? tileW / 2 : 0;
-
-            cellWidget->setGeometry(
-                startX + c * tileW + offset,
-                startY + r * tileH,
-                tileW,
-                tileH
-                );
-
-            cellWidget->setStyleSheet("background-color: #ffffff; border:1px solid #555;");
-
-            QLabel *imgLabel = new QLabel(cellWidget);
-            imgLabel->setPixmap(QPixmap(getImageForLevel(mapCells[r][c].level))
-                                    .scaled(tileW, tileH*0.75, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
-            imgLabel->setGeometry(0,0,tileW, tileH*0.75);
-            imgLabel->setAlignment(Qt::AlignCenter);
-
-            QLabel *txtLabel = new QLabel(mapCells[r][c].name, cellWidget);
-            txtLabel->setGeometry(0,tileH*0.75,tileW, tileH*0.25);
-            txtLabel->setAlignment(Qt::AlignCenter);
-            txtLabel->setStyleSheet("color:black; font-weight:bold; font-size:12px;");
-        }
-    }
-
-    boardWidget->show();
+bool GameBoard::eventFilter(QObject *obj, QEvent *event)
+{
+    Q_UNUSED(obj)
+    Q_UNUSED(event)
+    return false;
 }

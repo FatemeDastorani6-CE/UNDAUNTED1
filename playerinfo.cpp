@@ -37,7 +37,6 @@ PlayerInfo::PlayerInfo(QWidget *parent)
     , ui(new Ui::PlayerInfo)
 {
     ui->setupUi(this);
-    this->showFullScreen();
 }
 PlayerInfo::~PlayerInfo()
 {
@@ -55,15 +54,28 @@ void PlayerInfo::on_Next_clicked()
     }
 
     if (!CheckName(name1)) {
-        QMessageBox::warning(this, "Error", "The first player name is not valid!");
+        QMessageBox::warning(this, "Error", "The second player name is not valid! \n"
+                                            "  name must be :\n"
+                                            "- at least 8 characters\n"
+                                            "- Contain both uppercase and lowercase letters"
+                                            "- Contain at least one number\n"
+                                            "- Contain at least one special character Like($#%)\n"
+
+                             );
         return;
     }
 
     if (!CheckName(name2)) {
-        QMessageBox::warning(this, "Error", "The second player name is not valid!");
+        QMessageBox::warning(this, "Error", "The second player name is not valid! \n"
+                                            "  name must be :\n"
+                                            "- at least 8 characters\n"
+                                            "- Contain both uppercase and lowercase letters"
+                                            "- Contain at least one number\n"
+                                            "- Contain at least one special character Like($#%)\n"
+
+                             );
         return;
     }
-
 
 
     SelectMap mapDialog(this);
