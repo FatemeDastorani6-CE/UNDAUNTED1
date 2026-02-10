@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/map2">
+        <file>_phase2.txt</file>
+    </qresource>
+</RCC>

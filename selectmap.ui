@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>900</width>
-    <height>600</height>
+    <width>1000</width>
+    <height>1024</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,13 +17,10 @@
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>0</y>
-     <width>900</width>
-     <height>600</height>
+     <y>-50</y>
+     <width>2200</width>
+     <height>900</height>
     </rect>
-   </property>
-   <property name="toolTipDuration">
-    <number>-1</number>
    </property>
    <property name="styleSheet">
     <string notr="true">QWidget {
@@ -36,175 +33,170 @@
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap resource="images.qrc">:/image/map1.jpg</pixmap>
+    <pixmap resource="images.qrc">:/image/map.jpg</pixmap>
    </property>
-   <property name="scaledContents">
-    <bool>true</bool>
+  </widget>
+  <widget class="QPushButton" name="pushButton_2">
+   <property name="geometry">
+    <rect>
+     <x>910</x>
+     <y>750</y>
+     <width>100</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>PushButton</string>
    </property>
   </widget>
   <widget class="QRadioButton" name="radioButton1">
    <property name="geometry">
     <rect>
-     <x>215</x>
-     <y>149</y>
-     <width>200</width>
-     <height>200</height>
+     <x>260</x>
+     <y>310</y>
+     <width>100</width>
+     <height>30</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>American Typewriter</family>
+     <pointsize>20</pointsize>
+     <italic>false</italic>
+     <bold>true</bold>
+    </font>
+   </property>
    <property name="styleSheet">
-    <string notr="true">QRadioButton::indicator {
-    width: 18px;
-    height: 18px;
-}
+    <string notr="true">QRadioButton{
+color: dark-brown;
 
-QRadioButton::indicator:unchecked {
-    border: 2px solid #b5712f;
-    background-color: #452b13;
-    border-radius: 9px;
-}
-
-QRadioButton::indicator:checked {
-    border: 2px solid #efdac7;
-    background-color: #efdac7;
-    border-radius: 9px;
 }</string>
    </property>
    <property name="text">
-    <string/>
+    <string> Map 1</string>
    </property>
   </widget>
   <widget class="QRadioButton" name="radioButton2">
    <property name="geometry">
     <rect>
-     <x>390</x>
-     <y>150</y>
-     <width>200</width>
-     <height>200</height>
+     <x>460</x>
+     <y>310</y>
+     <width>100</width>
+     <height>30</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>American Typewriter</family>
+     <pointsize>20</pointsize>
+     <bold>true</bold>
+    </font>
+   </property>
    <property name="styleSheet">
-    <string notr="true">QRadioButton::indicator {
-    width: 18px;
-    height: 18px;
-}
+    <string notr="true">QRadioButton{
+color: dark-brown;
 
-QRadioButton::indicator:unchecked {
-    border: 2px solid #b5712f;
-    background-color: #452b13;
-    border-radius: 9px;
-}
-
-QRadioButton::indicator:checked {
-    border: 2px solid #efdac7;
-    background-color: #efdac7;
-    border-radius: 9px;
 }</string>
    </property>
    <property name="text">
-    <string/>
+    <string> Map 2</string>
    </property>
   </widget>
   <widget class="QRadioButton" name="radioButton3">
    <property name="geometry">
     <rect>
-     <x>570</x>
-     <y>150</y>
-     <width>200</width>
-     <height>200</height>
+     <x>660</x>
+     <y>310</y>
+     <width>100</width>
+     <height>30</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>American Typewriter</family>
+     <pointsize>20</pointsize>
+     <bold>true</bold>
+    </font>
+   </property>
    <property name="styleSheet">
-    <string notr="true">QRadioButton::indicator {
-    width: 18px;
-    height: 18px;
-}
+    <string notr="true">QRadioButton{
+color: dark-brown;
 
-QRadioButton::indicator:unchecked {
-    border: 2px solid #b5712f;
-    background-color: #452b13;
-    border-radius: 9px;
-}
-
-QRadioButton::indicator:checked {
-    border: 2px solid #efdac7;
-    background-color: #efdac7;
-    border-radius: 9px;
 }</string>
    </property>
    <property name="text">
-    <string/>
+    <string> Map 3</string>
    </property>
   </widget>
   <widget class="QRadioButton" name="radioButton4">
    <property name="geometry">
     <rect>
-     <x>298</x>
-     <y>310</y>
-     <width>200</width>
-     <height>200</height>
+     <x>360</x>
+     <y>550</y>
+     <width>100</width>
+     <height>30</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>American Typewriter</family>
+     <pointsize>20</pointsize>
+     <bold>true</bold>
+    </font>
+   </property>
    <property name="styleSheet">
-    <string notr="true">QRadioButton::indicator {
-    width: 18px;
-    height: 18px;
-}
+    <string notr="true">QRadioButton{
+color: dark-brown;
 
-QRadioButton::indicator:unchecked {
-    border: 2px solid #b5712f;
-    background-color: #452b13;
-    border-radius: 9px;
 }
-
-QRadioButton::indicator:checked {
-    border: 2px solid #efdac7;
-    background-color: #efdac7;
-    border-radius: 9px;
-}</string>
+</string>
    </property>
    <property name="text">
-    <string/>
+    <string> Map 4</string>
    </property>
   </widget>
   <widget class="QRadioButton" name="radioButton5">
    <property name="geometry">
     <rect>
-     <x>485</x>
-     <y>310</y>
-     <width>200</width>
-     <height>200</height>
+     <x>560</x>
+     <y>550</y>
+     <width>100</width>
+     <height>30</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>American Typewriter</family>
+     <pointsize>20</pointsize>
+     <bold>true</bold>
+    </font>
+   </property>
    <property name="styleSheet">
-    <string notr="true">QRadioButton::indicator {
-    width: 18px;
-    height: 18px;
-}
+    <string notr="true">QRadioButton{
+color: dark-brown;
 
-QRadioButton::indicator:unchecked {
-    border: 2px solid #b5712f;
-    background-color: #452b13;
-    border-radius: 9px;
-}
-
-QRadioButton::indicator:checked {
-    border: 2px solid #efdac7;
-    background-color: #efdac7;
-    border-radius: 9px;
 }</string>
    </property>
    <property name="text">
-    <string/>
+    <string> Map 5</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="OK">
+  <widget class="QPushButton" name="okButton">
    <property name="geometry">
     <rect>
-     <x>310</x>
-     <y>460</y>
-     <width>281</width>
-     <height>51</height>
+     <x>440</x>
+     <y>640</y>
+     <width>191</width>
+     <height>61</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI</family>
+     <pointsize>-1</pointsize>
+     <italic>true</italic>
+     <bold>true</bold>
+    </font>
    </property>
    <property name="styleSheet">
     <string notr="true">QPushButton {
@@ -214,17 +206,17 @@ QRadioButton::indicator:checked {
     font-family: &quot;Segoe UI&quot;, &quot;Arial&quot;;
     padding: 12px 30px;
 
-    border-radius: 20px;
+    border-radius: 30px;
 
     background: qlineargradient(
         x1:0 y1:0, x2:0 y2:1,
-        stop:0 #a77749,
-        stop:0.4 #d9c89d,
+        stop:0 #cf8d37,
+        stop:0.4 #e8c469,
         stop:0.6 #f0e3cf,
-        stop:1 #a77749
+        stop:1 #cf8d37
     );
 
-    border: 2px solid #a77749;
+    border: 2px solid #cf8d37;
 }
 
 QPushButton:hover {

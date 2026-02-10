@@ -9,23 +9,31 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    card.cpp \
-    game.cpp \
+    agent.cpp \
+    bfs.cpp \
+    dice.cpp \
     gameboard.cpp \
     main.cpp \
     mainwindow.cpp \
-    player.cpp \
+    map.cpp \
     playerinfo.cpp \
-    selectmap.cpp
+    scout.cpp \
+    selectmap.cpp \
+    sergeant.cpp \
+    sniper.cpp
 
 HEADERS += \
-    card.h \
-    game.h \
+    agent.h \
+    bfs.h \
+    dice.h \
     gameboard.h \
     mainwindow.h \
-    player.h \
+    map.h \
     playerinfo.h \
-    selectmap.h
+    scout.h \
+    selectmap.h \
+    sergeant.h \
+    sniper.h
 
 FORMS += \
     gameboard.ui \
@@ -41,6 +49,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
     cards.qrc \
     image/resource.qrc \
+    image1.qrc \
     images.qrc \
     maps.qrc
 

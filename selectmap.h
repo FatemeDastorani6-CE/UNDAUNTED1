@@ -1,13 +1,8 @@
 #ifndef SELECTMAP_H
 #define SELECTMAP_H
 
-#include <QMap>
-#include <QRadioButton>
 #include <QDialog>
 #include <QString>
-#include <QFile>
-
-
 
 namespace Ui {
 class SelectMap;
@@ -18,23 +13,19 @@ class SelectMap : public QDialog
     Q_OBJECT
 
 public:
-     SelectMap(QWidget *parent = nullptr);
+    explicit SelectMap(QWidget *parent = nullptr);
     ~SelectMap();
 
-    QString selectedMapPath() const;
-
-
-
-
+    QString selectedMapPath() const;       // مسیر فایل Phase1
+    QString selectedPhase2Path() const;    // مسیر فایل Phase2 متناظر
 
 private slots:
-    void on_OK_clicked();
     void mapSelectionChanged(const QString &path);
+    void on_okButton_clicked();
 
 private:
-
     Ui::SelectMap *ui;
     QString chosenMap;
 };
 
-#endif
+#endif // SELECTMAP_H

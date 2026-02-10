@@ -37,6 +37,7 @@ PlayerInfo::PlayerInfo(QWidget *parent)
     , ui(new Ui::PlayerInfo)
 {
     ui->setupUi(this);
+    this->showFullScreen();
 }
 PlayerInfo::~PlayerInfo()
 {
@@ -54,40 +55,27 @@ void PlayerInfo::on_Next_clicked()
     }
 
     if (!CheckName(name1)) {
-        QMessageBox::warning(this, "Error", "The second player name is not valid! \n"
-                                            "  name must be :\n"
-                                            "- at least 8 characters\n"
-                                            "- Contain both uppercase and lowercase letters"
-                                            "- Contain at least one number\n"
-                                            "- Contain at least one special character Like($#%)\n"
-
-                             );
+        QMessageBox::warning(this, "Error", "The first player name is not valid!");
         return;
     }
 
     if (!CheckName(name2)) {
-        QMessageBox::warning(this, "Error", "The second player name is not valid! \n"
-                                            "  name must be :\n"
-                                            "- at least 8 characters\n"
-                                            "- Contain both uppercase and lowercase letters"
-                                            "- Contain at least one number\n"
-                                            "- Contain at least one special character Like($#%)\n"
-
-                             );
+        QMessageBox::warning(this, "Error", "The second player name is not valid!");
         return;
     }
 
 
+
     SelectMap mapDialog(this);
     if (mapDialog.exec() == QDialog::Accepted) {
-        QString path = mapDialog.selectedMapPath();
+
+        QString pathPhase1 = mapDialog.selectedMapPath();        // فایل Phase1
+        QString pathPhase2 = mapDialog.selectedPhase2Path();    // فایل Phase2 متناظر
 
         GameBoard *gb = new GameBoard();
-        gb->loadMap(path);
-        gb->show();
 
-        this->close();
-
-        }
+        gb->loadMap(pathPhase1, pathPhase2);
+        gb->updateBoardView();
+    }
 }
 

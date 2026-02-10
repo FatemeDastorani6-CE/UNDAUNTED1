@@ -2,29 +2,39 @@
 #define GAMEBOARD_H
 
 #include <QDialog>
-#include <QHBoxLayout>
-#include <QPushButton>
-#include "game.h"
+#include <QVector>
+#include <QLabel>
+#include <QGridLayout>
+#include <QWidget>
+
+
+#include "agent.h"    // برای نمایش مهره‌ها
+#include "map.h"      // Map واقعی با neighbors
+
 
 class GameBoard : public QDialog
 {
     Q_OBJECT
+
 public:
-    explicit GameBoard(Game *g, QWidget *parent = nullptr);
+    explicit GameBoard(QWidget *parent = nullptr);
     ~GameBoard();
 
-    void loadMap(const QString &path);
-    void updateHandUI();
+    void updateBoardView();
 
-protected:
-    bool eventFilter(QObject *obj, QEvent *event) override;
+    void loadMap(const QString &phase1Path, const QString &phase2Path);
+    QVector<MapCell> cells; // فرضا برای کل خانه‌ها
 
 private:
-    Game *game;
+    QWidget *boardWidget;
+    QGridLayout *gridLayout;
+    Map* gameMap;
+    QVector<QVector<MapCell>> mapCells;
 
-    QWidget *handWidget;
-    QHBoxLayout *handLayout;
-    QVector<QPushButton*> cardButtons;
+    QString getImageForLevel(int level);
+
+    const int tileW = 80;
+    const int tileH = 80;
 };
 
-#endif
+#endif // GAMEBOARD_H

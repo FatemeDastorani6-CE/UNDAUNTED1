@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>900</width>
-    <height>600</height>
+    <width>1200</width>
+    <height>1943</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,17 +16,17 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>0</x>
+     <x>-10</x>
      <y>0</y>
-     <width>900</width>
-     <height>600</height>
+     <width>1300</width>
+     <height>800</height>
     </rect>
    </property>
    <property name="text">
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap resource="images.qrc">:/image/back2.jpeg</pixmap>
+    <pixmap resource="images.qrc">:/image/Downloads/IMG_5223.jpg</pixmap>
    </property>
    <property name="scaledContents">
     <bool>true</bool>
@@ -35,10 +35,10 @@
   <widget class="QLineEdit" name="player1">
    <property name="geometry">
     <rect>
-     <x>145</x>
-     <y>236</y>
-     <width>251</width>
-     <height>41</height>
+     <x>200</x>
+     <y>320</y>
+     <width>361</width>
+     <height>51</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -46,7 +46,7 @@
     background: #00000;
     color: #fdf8f2;
     border: 2px solid #808080;
-    border-radius:10px;
+    border-radius:20px;
     padding: 10px 15px;
     font-size: 18px;
 }
@@ -55,6 +55,9 @@ QLineEdit:focus {
     background: #000000;
 }</string>
    </property>
+   <property name="text">
+    <string/>
+   </property>
    <property name="placeholderText">
     <string>Enter Player1 Name</string>
    </property>
@@ -62,10 +65,10 @@ QLineEdit:focus {
   <widget class="QLineEdit" name="player2">
    <property name="geometry">
     <rect>
-     <x>510</x>
-     <y>236</y>
-     <width>251</width>
-     <height>41</height>
+     <x>730</x>
+     <y>320</y>
+     <width>361</width>
+     <height>51</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -73,7 +76,7 @@ QLineEdit:focus {
     background: #00000;
     color: #fdf8f2;
     border: 2px solid #808080;
-    border-radius:10px;
+    border-radius:20px;
     padding: 10px 15px;
     font-size: 18px;
 }
@@ -89,10 +92,10 @@ QLineEdit:focus {
   <widget class="QPushButton" name="Next">
    <property name="geometry">
     <rect>
-     <x>352</x>
-     <y>377</y>
-     <width>210</width>
-     <height>53</height>
+     <x>500</x>
+     <y>500</y>
+     <width>301</width>
+     <height>71</height>
     </rect>
    </property>
    <property name="styleSheet">
