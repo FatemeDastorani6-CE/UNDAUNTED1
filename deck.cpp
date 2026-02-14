@@ -1,6 +1,11 @@
 #include "deck.h"
 
-
+void Deck::removeFromGame(const Card& card)
+{
+    drawPile.removeOne(card);
+    discardPile.removeOne(card);
+    removedPile.append(card);
+}
 
 void Deck::initialize(const QString& owner) {
     Q_UNUSED(owner);

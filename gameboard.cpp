@@ -72,8 +72,8 @@ void GameBoard::loadMap(const QString &phase1Path, const QString &phase2Path)
 {
     Q_UNUSED(phase2Path);
 
-    const int tileW = 60;
-    const int tileH = 60;
+    const int tileW = 70;
+    const int tileH = 70;
 
     mapCells.clear();
 

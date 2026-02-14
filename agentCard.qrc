@@ -1,0 +1,22 @@
+<RCC>
+    <qresource prefix="/card">
+        <file>sniperA.JPEG</file>
+        <file>sergeantA.JPEG</file>
+        <file>scoutB.JPEG</file>
+        <file>sergeantB.JPEG</file>
+        <file>sniperB.JPEG</file>
+        <file>scoutA.JPEG</file>
+        <file>backB.jpg</file>
+        <file>10dice.JPEG</file>
+        <file>1dice.PNG</file>
+        <file>3dice.PNG</file>
+        <file>2dice.PNG</file>
+        <file>4dice.PNG</file>
+        <file>5dice.PNG</file>
+        <file>6dice.PNG</file>
+        <file>7dice.PNG</file>
+        <file>9dice.PNG</file>
+        <file>8dice.PNG</file>
+        <file>backA.JPEG</file>
+    </qresource>
+</RCC>

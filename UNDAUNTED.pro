@@ -51,6 +51,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
+    agentCard.qrc \
     agents.qrc \
     cards.qrc \
     image/resource.qrc \

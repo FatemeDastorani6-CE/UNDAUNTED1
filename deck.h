@@ -13,14 +13,24 @@
 
 
 class Deck {
+
+
 private:
-    QVector<Card> cards;
+    QVector<Card> drawPile;
+    QVector<Card> discardPile;
+    QVector<Card> removedPile;   // کارت‌های حذف‌شده از بازی
 public:
+    QVector<Card> cards;
     void initialize(const QString& owner);
     void shuffle();
-    bool isEmpty() const;
     Card drawCard();
+    void discard(const Card& card);
+    bool isEmpty() const;
     int remaining() const;
+    void removeFromGame(const Card& card);
+
+
+
 };
 
 #endif

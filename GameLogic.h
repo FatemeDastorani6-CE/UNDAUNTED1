@@ -63,6 +63,16 @@ public:
         }
         return false;
     }
+
+
+    void GameLogic::removeOpponentCard(const Card& card)
+    {
+        if(currentPlayer == "A")
+            deckB.removeFromGame(card);
+        else
+            deckA.removeFromGame(card);
+    }
+
 };
 
 #endif
