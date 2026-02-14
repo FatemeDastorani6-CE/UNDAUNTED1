@@ -1,13 +1,12 @@
 #ifndef AGENT_H
 #define AGENT_H
 
-
 #include <QString>
 #include <QVector>
 #include "map.h"
+#include "dice.h"
 
 enum class AgentType { Scout, Sniper, Sergeant };
-class DiceResult;
 
 class Agent {
 
@@ -16,12 +15,13 @@ protected:
     int hp;
     MapCell* position;
 
+   virtual int calculateAttackValue(const QVector<MapCell*>& path, Agent* target) const = 0;
+
 public:
     Agent(const QString& owner, MapCell* start);
     virtual ~Agent();
 
     virtual int diceCount() const = 0;
-    DiceResult rollDice() const;
 
     QString getOwner() const;
     int getHp() const;
@@ -29,9 +29,11 @@ public:
 
     bool moveTo(MapCell* dest);
 
+    bool attackAgent(Agent* target);
+
     virtual QVector<MapCell*> possibleMoves() = 0;
 
-    virtual int calculateAttackValue(const QVector<MapCell*>& path, Agent* target) const = 0;
+    virtual void onMove() {}   // برای Scout استفاده می‌شود
 };
 
 #endif // AGENT_H

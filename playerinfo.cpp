@@ -3,7 +3,7 @@
 #include <qmessagebox.h>
 #include "selectmap.h"
 #include "gameboard.h"
-#include "QFile"
+#include <QFile>
 
 
 
@@ -73,6 +73,9 @@ void PlayerInfo::on_Next_clicked()
         QString pathPhase2 = mapDialog.selectedPhase2Path();    // فایل Phase2 متناظر
 
         GameBoard *gb = new GameBoard();
+
+        gb->setPlayerNames(name1, name2);
+
 
         gb->loadMap(pathPhase1, pathPhase2);
         gb->updateBoardView();

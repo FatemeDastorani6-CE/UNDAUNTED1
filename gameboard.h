@@ -7,10 +7,8 @@
 #include <QGridLayout>
 #include <QWidget>
 
-
-#include "agent.h"    // برای نمایش مهره‌ها
-#include "map.h"      // Map واقعی با neighbors
-
+#include "agent.h"
+#include "map.h"
 
 class GameBoard : public QDialog
 {
@@ -20,12 +18,14 @@ public:
     explicit GameBoard(QWidget *parent = nullptr);
     ~GameBoard();
 
+    void setPlayerNames(const QString& a, const QString& b);
+    void loadMap(const QString &phase1Path, const QString &phase2Path);
     void updateBoardView();
 
-    void loadMap(const QString &phase1Path, const QString &phase2Path);
-    QVector<MapCell> cells; // فرضا برای کل خانه‌ها
-
 private:
+    QString playerAName;
+    QString playerBName;
+
     QWidget *boardWidget;
     QGridLayout *gridLayout;
     Map* gameMap;
@@ -35,6 +35,12 @@ private:
 
     const int tileW = 80;
     const int tileH = 80;
+
+    void handleSuccessfulAttack(Agent* attacker, Agent* target);
+    void checkGameOver();
+    int countControlledCells(const QString& player) const;
+    bool playerHasAgents(const QString& player) const;
+    void gameOver(const QString& winner);
 };
 
 #endif // GAMEBOARD_H

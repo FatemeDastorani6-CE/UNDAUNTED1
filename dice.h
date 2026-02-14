@@ -3,11 +3,11 @@
 
 class DiceResult {
 public:
-    QVector<int> values;   // مثلا {3, 7, 10}
+    QVector<int> values;
     int sum() const;
 };
 
 class Dice {
 public:
-    static DiceResult roll(int count); // تعداد تاس
+    static DiceResult roll(int count); // همیشه D10
 };

@@ -28,7 +28,7 @@ public:
 
 private:
     QVector<MapCell> cells;
-     QVector<QVector<MapCell>> mapCells;
+    QVector<QVector<MapCell>> mapCells;
 };
 
 #endif // MAP_H

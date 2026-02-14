@@ -8,14 +8,11 @@ class Scout : public Agent {
 public:
     Scout(const QString& owner, MapCell* start);
 
-
-    // اکشن‌ها
     QVector<MapCell*> possibleMoves() override;  // Move
     void scoutCell(MapCell* cell);               // دیده‌بانی
     bool attackAgent(Agent* target);             // حمله
 
-
-      int diceCount() const override { return 1; }
+    int diceCount() const override { return 1; }
 
     int calculateAttackValue(const QVector<MapCell*>& path, Agent* target) const override;
 };

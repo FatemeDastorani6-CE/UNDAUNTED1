@@ -11,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     agent.cpp \
     bfs.cpp \
+    deck.cpp \
     dice.cpp \
     gameboard.cpp \
     main.cpp \
@@ -23,8 +24,11 @@ SOURCES += \
     sniper.cpp
 
 HEADERS += \
+    Card.h \
+    GameLogic.h \
     agent.h \
     bfs.h \
+    deck.h \
     dice.h \
     gameboard.h \
     mainwindow.h \
@@ -47,11 +51,12 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
+    agents.qrc \
     cards.qrc \
     image/resource.qrc \
     image1.qrc \
     images.qrc \
-    maps.qrc
+    map.qrc
 
 
 

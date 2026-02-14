@@ -5,6 +5,7 @@ Scout::Scout(const QString& owner, MapCell* start)
     : Agent(owner, start)
 {
     hp = 5;
+    if(position) scoutCell(position); // دیده‌بانی خانه شروع
 }
 
 // Move
@@ -18,11 +19,8 @@ void Scout::scoutCell(MapCell* cell) {
     else cell->scoutedByB = true;
 }
 
-
 // محاسبه معیار حمله
-int Scout::calculateAttackValue(const QVector<MapCell*>& path,
-                                Agent* target) const
-{
+int Scout::calculateAttackValue(const QVector<MapCell*>& path, Agent* target) const {
     int sum = target->getHp();
     for(MapCell* c : path)
         sum += c->level;
@@ -37,8 +35,8 @@ bool Scout::attackAgent(Agent* target) {
     int attackValue = calculateAttackValue(path, target);
     bool success = false;
 
-    for(int i=0; i<diceCount(); i++){
-        int roll = QRandomGenerator::global()->bounded(1,11); // 1 تا 10
+    for(int i = 0; i < diceCount(); ++i){
+        int roll = QRandomGenerator::global()->bounded(1, 11); // 1 تا 10
         if(roll >= attackValue) success = true;
     }
 
