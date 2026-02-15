@@ -1,19 +1,27 @@
-// Card.h
 #ifndef CARD_H
 #define CARD_H
 
-#include "agent.h"
+#include <QString>
 
-struct Card {
-    AgentType type;
+enum CardType {
+    SCOUT,
+    SNIPER,
+    SERGEANT
+};
 
-    Card() = default;                // default constructor
-    Card(AgentType t) : type(t) {}   // constructor با AgentType
+class Card
+{
+public:
+    Card(QString name = "", CardType type = SCOUT);
+    CardType getType() const;
 
-    // مقایسه دو کارت بر اساس نوع ایجنت
     bool operator==(const Card& other) const {
-        return type == other.type;
+        return this->type == other.type && this->name == other.name;
     }
+
+private:
+    QString name;
+    CardType type;
 };
 
 #endif
